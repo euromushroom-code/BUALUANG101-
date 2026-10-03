@@ -2581,3 +2581,89 @@ a {
         height: 34px;
     }
 }
+   /* ---------------------------------------------------------
+   MUSIC PLAYER
+--------------------------------------------------------- */
+
+const musicButton =
+    document.getElementById(
+        "musicButton"
+    );
+
+const music =
+    document.getElementById(
+        "backgroundMusic"
+    );
+
+const musicLabel =
+    document.getElementById(
+        "musicLabel"
+    );
+
+
+if (musicButton && music) {
+
+    musicButton.addEventListener(
+        "click",
+        async function () {
+
+            if (music.paused) {
+
+                try {
+
+                    await music.play();
+
+                    musicButton.classList.add(
+                        "playing"
+                    );
+
+                    musicLabel.textContent =
+                        "SOUND ON";
+
+                }
+
+                catch (error) {
+
+                    console.error(
+                        "ไม่สามารถเปิดเพลงได้",
+                        error
+                    );
+
+                    musicLabel.textContent =
+                        "FILE ERROR";
+
+                }
+
+            } else {
+
+                music.pause();
+
+                musicButton.classList.remove(
+                    "playing"
+                );
+
+                musicLabel.textContent =
+                    "SOUND OFF";
+
+            }
+
+        }
+    );
+
+
+    music.addEventListener(
+        "error",
+        function () {
+
+            console.error(
+                "ไม่พบไฟล์เพลง:",
+                music.currentSrc
+            );
+
+            musicLabel.textContent =
+                "FILE ERROR";
+
+        }
+    );
+
+}
